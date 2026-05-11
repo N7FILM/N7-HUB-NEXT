@@ -5,16 +5,16 @@ import { motion } from 'framer-motion';
 
 export async function getStaticPaths() {
   const movies = await fetchMovies();
-  const paths = movies.map((movie) => ({
+  const paths = movies.map((movie: any) => ({
     params: { id: movie.id.toString() },
   }));
 
   return { paths, fallback: false };
 }
 
-export async function getStaticProps({ params }) {
+export async function getStaticProps({ params }: any) {
   const movies = await fetchMovies();
-  const movie = movies.find((m) => m.id.toString() === params.id);
+  const movie = movies.find((m: any) => m.id.toString() === params.id);
 
   return {
     props: {
@@ -23,7 +23,7 @@ export async function getStaticProps({ params }) {
   };
 }
 
-export default function MoviePage({ movie }) {
+export default function MoviePage({ movie }: any) {
   return (
     <>
       <Head>
