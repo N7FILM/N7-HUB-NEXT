@@ -1,45 +1,27 @@
-import Head from "next/head";
-import { fetchMovies } from "../lib/googleSheets";
-import Link from "next/link";
+import Head from 'next/head';
 
-export async function getStaticProps() {
-  const movies = await fetchMovies();
-  return {
-    props: {
-      movies,
-    },
-    revalidate: 60 * 60, // Re-generate page every hour
-  };
-}
-
-export default function Home({ movies }: any) {
+export default function Home() {
   return (
-    <>
+    <div className="min-h-screen bg-[#030303] text-white font-sans">
       <Head>
-        <title>N7 Intelligence Hub</title>
-        <meta name="description" content="N7 Intelligence Hub" />
-        <link rel="icon" href="/favicon.ico" />
+        <title>N7_HUB | Cinematic Intelligence</title>
       </Head>
-      <main className="flex flex-col items-center justify-center min-h-screen py-20">
-        <section className="h-[90vh] flex flex-col justify-center items-center text-center">
-          <h1 className="text-9xl font-bold tracking-widest">
-            N7 <span className="text-neonRed">DATABASE</span>
-          </h1>
-        </section>
-        <section>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">
-            {movies.map((movie: any) => (
-              <Link key={movie.id} href={`/movies/${movie.id}`}>
-                <div className="bg-gray-800 h-96 rounded-lg flex flex-col justify-center items-center cursor-pointer transition-transform duration-300 hover:scale-105">
-                  <img src={movie.posterUrl} alt={movie.title} className="w-full h-3/4 object-cover rounded-t-lg"/>
-                  <h2 className="text-2xl font-bold p-4">{movie.title}</h2>
-                  <p>{movie.releaseDate}</p>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </section>
-      </main>
-    </>
+      
+      {/* Navbar */}
+      <nav className="fixed w-full top-0 p-6 flex justify-between items-center bg-black/50 backdrop-blur-md z-50 border-b border-white/10">
+        <h1 className="text-3xl font-black tracking-tighter">N7<span className="text-[#0f5ad1]">HUB</span></h1>
+        <button className="px-6 py-2 bg-[#E50914] rounded font-bold hover:scale-105 transition">Login</button>
+      </nav>
+
+      {/* Hero Section */}
+      <header className="relative h-[90vh] flex items-center px-10 border-b border-white/10" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1618519764620-7403abdbdf9c?auto=format&fit=crop&q=80')", backgroundSize: 'cover', backgroundPosition: 'center' }}>
+        <div className="absolute inset-0 bg-gradient-to-t from-[#030303] to-transparent"></div>
+        <div className="relative z-10 max-w-3xl">
+          <span className="px-3 py-1 bg-[#0f5ad1] text-xs font-bold rounded mb-4 inline-block">SYSTEM ACTIVE</span>
+          <h2 className="text-6xl md:text-8xl font-black mb-6 uppercase tracking-tighter shadow-black drop-shadow-2xl">Classified Data</h2>
+          <button className="px-8 py-4 bg-white text-black font-bold rounded hover:bg-gray-200 transition">Initiate Feed</button>
+        </div>
+      </header>
+    </div>
   );
 }
